@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { z } from 'zod';
 import Vehicle from '../models/Vehicle.js';
+import cloudinary from '../config/cloudinary.js';
 
 // Keep these lists in sync with the enums in models/Vehicle.js
 const BODY_TYPES = ['sedan', 'suv', 'truck', 'coupe', 'hatchback', 'van', 'convertible', 'wagon'];
@@ -137,6 +138,10 @@ export async function deleteVehicle(req, res, next) {
     }
     const vehicle = await Vehicle.findByIdAndDelete(req.params.id).lean();
     if (!vehicle) return res.status(404).json({ message: 'Vehicle not found' });
+
+    // Remove the car's photos from Cloudinary too, so they don't use up storage
+    await Promise.allSettled(vehicle.images.map((img) => cloudinary.uploader.destroy(img.publicId)));
+
     res.json({ message: 'Vehicle deleted' });
   } catch (err) {
     next(err);
