@@ -4,6 +4,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import vehicleRoutes from './routes/vehicleRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import adminVehicleRoutes from './routes/adminVehicleRoutes.js';
+import inquiryRoutes from './routes/inquiryRoutes.js';
+import adminInquiryRoutes from './routes/adminInquiryRoutes.js';
 
 const app = express();
 
@@ -18,6 +22,10 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/vehicles', vehicleRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin/vehicles', adminVehicleRoutes);
+app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/admin/inquiries', adminInquiryRoutes);
 
 // Catches errors passed along with next(err)
 app.use((err, req, res, next) => {
