@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeaderNav from "@/components/HeaderNav";
 
 export default function Header() {
   return (
@@ -7,14 +8,7 @@ export default function Header() {
         <Link href="/" className="text-lg font-bold text-blue-700">
           One Best Price Autos
         </Link>
-        <div className="flex gap-6 text-sm font-medium">
-          <Link href="/inventory" className="hover:text-blue-700">
-            Inventory
-          </Link>
-          <Link href="/login" className="hover:text-blue-700">
-            Login
-          </Link>
-        </div>
+        <HeaderNav />
       </nav>
     </header>
   );
