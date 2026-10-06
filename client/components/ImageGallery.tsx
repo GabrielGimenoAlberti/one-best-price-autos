@@ -46,7 +46,13 @@ export default function ImageGallery({
                 i === selected ? "border-orange-500" : "border-transparent"
               }`}
             >
-              <Image src={img.url} alt="" fill sizes="96px" className="object-cover" />
+              <Image
+                src={img.url}
+                alt=""
+                fill
+                sizes="96px"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>

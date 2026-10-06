@@ -28,7 +28,9 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
       </div>
       <div className="p-4">
         <h3 className="font-semibold">{title}</h3>
-        {vehicle.trim && <p className="text-sm text-gray-500">{vehicle.trim}</p>}
+        {vehicle.trim && (
+          <p className="text-sm text-gray-500">{vehicle.trim}</p>
+        )}
         <p className="mt-2 text-xl font-bold text-teal-700">
           ${vehicle.price.toLocaleString("en-US")}
         </p>

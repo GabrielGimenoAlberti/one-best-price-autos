@@ -12,7 +12,10 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<Result<
       ...init,
       credentials: "include", // sends the admin login cookie
       cache: "no-store",
-      headers: init.body ? { "Content-Type": "application/json" } : undefined,
+      headers:
+        init.body && !(init.body instanceof FormData)
+          ? { "Content-Type": "application/json" }
+          : undefined,
     });
     const json = await res.json().catch(() => null);
     if (res.ok) return { data: json as T };
@@ -59,5 +62,20 @@ export function updateAdminVehicle(id: string, body: VehicleInput) {
   return request<Vehicle>(`/admin/vehicles/${id}`, {
     method: "PUT",
     body: JSON.stringify(body),
+  });
+}
+
+export function uploadVehicleImages(id: string, files: File[]) {
+  const form = new FormData();
+  files.forEach((f) => form.append("images", f));
+  return request<Vehicle>(`/admin/vehicles/${id}/images`, {
+    method: "POST",
+    body: form,
+  });
+}
+
+export function deleteVehicleImage(id: string, imageId: string) {
+  return request<Vehicle>(`/admin/vehicles/${id}/images/${imageId}`, {
+    method: "DELETE",
   });
 }

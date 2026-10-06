@@ -14,7 +14,9 @@ export default function InquiryForm({
   vehicleId: string;
   vehicleTitle: string;
 }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
   const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -48,7 +50,11 @@ export default function InquiryForm({
       }
 
       const json = await res.json().catch(() => null);
-      setError(json?.errors?.[0] ?? json?.message ?? "Something went wrong. Please try again.");
+      setError(
+        json?.errors?.[0] ??
+          json?.message ??
+          "Something went wrong. Please try again.",
+      );
       setStatus("error");
     } catch {
       setError("Could not reach the server. Please try again.");
@@ -75,19 +81,48 @@ export default function InquiryForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <div>
-        <label htmlFor="name" className={label}>Name</label>
-        <input id="name" name="name" required maxLength={100} autoComplete="name" className={input} />
+        <label htmlFor="name" className={label}>
+          Name
+        </label>
+        <input
+          id="name"
+          name="name"
+          required
+          maxLength={100}
+          autoComplete="name"
+          className={input}
+        />
       </div>
       <div>
-        <label htmlFor="email" className={label}>Email</label>
-        <input id="email" name="email" type="email" required autoComplete="email" className={input} />
+        <label htmlFor="email" className={label}>
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          className={input}
+        />
       </div>
       <div>
-        <label htmlFor="phone" className={label}>Phone (optional)</label>
-        <input id="phone" name="phone" type="tel" maxLength={30} autoComplete="tel" className={input} />
+        <label htmlFor="phone" className={label}>
+          Phone (optional)
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          maxLength={30}
+          autoComplete="tel"
+          className={input}
+        />
       </div>
       <div>
-        <label htmlFor="message" className={label}>Message</label>
+        <label htmlFor="message" className={label}>
+          Message
+        </label>
         <textarea
           id="message"
           name="message"
@@ -100,7 +135,9 @@ export default function InquiryForm({
       </div>
 
       {status === "error" && (
-        <p role="alert" className="text-sm text-red-600">{error}</p>
+        <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
       )}
 
       <button

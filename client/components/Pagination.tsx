@@ -18,9 +18,14 @@ export default function Pagination({ page, totalPages, params }: Props) {
   const disabled = "btn btn-secondary opacity-50 pointer-events-none";
 
   return (
-    <nav className="mt-8 flex items-center justify-center gap-4" aria-label="Pagination">
+    <nav
+      className="mt-8 flex items-center justify-center gap-4"
+      aria-label="Pagination"
+    >
       {page > 1 ? (
-        <Link href={hrefFor(page - 1)} className={btn}>Previous</Link>
+        <Link href={hrefFor(page - 1)} className={btn}>
+          Previous
+        </Link>
       ) : (
         <span className={disabled}>Previous</span>
       )}
@@ -28,7 +33,9 @@ export default function Pagination({ page, totalPages, params }: Props) {
         Page {page} of {totalPages}
       </span>
       {page < totalPages ? (
-        <Link href={hrefFor(page + 1)} className={btn}>Next</Link>
+        <Link href={hrefFor(page + 1)} className={btn}>
+          Next
+        </Link>
       ) : (
         <span className={disabled}>Next</span>
       )}

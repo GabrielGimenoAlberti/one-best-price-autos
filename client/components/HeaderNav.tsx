@@ -14,7 +14,8 @@ export default function HeaderNav() {
     router.refresh();
   }
 
-  const link = "text-sm font-medium text-gray-700 transition hover:text-orange-600";
+  const link =
+    "text-sm font-medium text-gray-700 transition hover:text-orange-600";
 
   return (
     <div className="flex items-center gap-4 sm:gap-6">

@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
 
-export default function AdminGuard({ children }: { children: React.ReactNode }) {
+export default function AdminGuard({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -21,8 +25,12 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
     return (
       <main className="mx-auto max-w-md px-4 py-16 text-center">
         <h1 className="text-2xl font-bold">Admin access required</h1>
-        <p className="mt-2 text-gray-600">This area is only for dealership staff.</p>
-        <Link href="/" className="btn btn-secondary mt-6">Back to home</Link>
+        <p className="mt-2 text-gray-600">
+          This area is only for dealership staff.
+        </p>
+        <Link href="/" className="btn btn-secondary mt-6">
+          Back to home
+        </Link>
       </main>
     );
   }
