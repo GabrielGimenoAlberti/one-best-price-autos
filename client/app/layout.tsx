@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen flex-col bg-white text-gray-900 antialiased">
+      <body className="flex min-h-screen flex-col text-gray-900 antialiased">
         <AuthProvider>
           <Header />
           <div className="flex-1">{children}</div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5001/api";
 
-const input = "w-full rounded border border-gray-300 px-3 py-2 text-sm";
+const input = "field";
 const label = "mb-1 block text-sm font-medium";
 
 export default function InquiryForm({
@@ -106,7 +106,7 @@ export default function InquiryForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800 disabled:opacity-60"
+        className="btn btn-primary w-full"
       >
         {status === "sending" ? "Sending..." : "Send message"}
       </button>

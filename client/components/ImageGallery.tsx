@@ -43,7 +43,7 @@ export default function ImageGallery({
               onClick={() => setSelected(i)}
               aria-label={`Show photo ${i + 1}`}
               className={`relative h-16 w-24 shrink-0 overflow-hidden rounded border-2 ${
-                i === selected ? "border-blue-700" : "border-transparent"
+                i === selected ? "border-orange-500" : "border-transparent"
               }`}
             >
               <Image src={img.url} alt="" fill sizes="96px" className="object-cover" />

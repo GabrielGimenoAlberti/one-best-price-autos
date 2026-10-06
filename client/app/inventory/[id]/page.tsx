@@ -40,7 +40,7 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      <Link href="/inventory" className="text-sm text-blue-700 hover:underline">
+      <Link href="/inventory" className="text-sm text-teal-700 hover:underline">
         ← Back to inventory
       </Link>
 
@@ -71,7 +71,7 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
           <div>
             <h1 className="text-2xl font-bold">{title}</h1>
             {v.trim && <p className="text-gray-500">{v.trim}</p>}
-            <p className="mt-2 text-3xl font-bold text-blue-700">
+            <p className="mt-2 text-3xl font-bold text-teal-700">
               ${v.price.toLocaleString("en-US")}
             </p>
             {v.status === "pending" && (
@@ -81,7 +81,7 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
             )}
           </div>
 
-          <dl className="divide-y divide-gray-200 rounded-lg border border-gray-200 text-sm">
+          <dl className="divide-y divide-gray-200 glass text-sm">
             {specs
               .filter(([, value]) => value)
               .map(([name, value]) => (
@@ -92,7 +92,7 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
               ))}
           </dl>
 
-          <div className="rounded-lg border border-gray-200 p-4">
+          <div className="glass p-4">
             <h2 className="mb-3 text-lg font-semibold">Ask about this vehicle</h2>
             <InquiryForm vehicleId={v._id} vehicleTitle={title} />
           </div>

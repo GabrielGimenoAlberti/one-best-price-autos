@@ -9,7 +9,7 @@ const SORTS = [
   { value: "mileage_asc", label: "Mileage: lowest first" },
 ];
 
-const input = "w-full rounded border border-gray-300 px-3 py-2 text-sm";
+const input = "field";
 const label = "mb-1 block text-sm font-medium";
 
 export default function Filters({ values }: { values: Record<string, string> }) {
@@ -77,10 +77,10 @@ export default function Filters({ values }: { values: Record<string, string> }) 
       </div>
 
       <div className="flex gap-2">
-        <button type="submit" className="flex-1 rounded bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800">
+        <button type="submit" className="btn btn-primary flex-1">
           Apply filters
         </button>
-        <a href="/inventory" className="rounded border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50">
+        <a href="/inventory" className="btn btn-secondary">
           Clear
         </a>
       </div>

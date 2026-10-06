@@ -43,7 +43,7 @@ export default async function InventoryPage({
 
       <div className="mt-6 flex flex-col gap-8 lg:flex-row">
         <aside className="lg:w-64 lg:shrink-0">
-          <details className="rounded-lg border border-gray-200 p-4 lg:hidden">
+          <details className="glass p-4 lg:hidden">
             <summary className="cursor-pointer font-semibold">Filters</summary>
             <div className="mt-4">
               <Filters values={params} />
