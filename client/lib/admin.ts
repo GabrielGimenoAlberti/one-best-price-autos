@@ -41,3 +41,23 @@ export function setVehicleStatus(id: string, status: VehicleStatus) {
 export function deleteAdminVehicle(id: string) {
   return request<{ message: string }>(`/admin/vehicles/${id}`, { method: "DELETE" });
 }
+
+export type VehicleInput = Record<string, string | number | string[]>;
+
+export function getAdminVehicle(id: string) {
+  return request<Vehicle>(`/admin/vehicles/${id}`);
+}
+
+export function createAdminVehicle(body: VehicleInput) {
+  return request<Vehicle>("/admin/vehicles", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export function updateAdminVehicle(id: string, body: VehicleInput) {
+  return request<Vehicle>(`/admin/vehicles/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+  });
+}

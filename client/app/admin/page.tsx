@@ -71,10 +71,17 @@ export default function AdminVehiclesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Vehicles</h1>
-      <p className="mt-1 text-sm text-gray-600">
-        {pagination ? `${pagination.total} total` : "Loading..."}
-      </p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold">Vehicles</h1>
+          <p className="mt-1 text-sm text-gray-600">
+            {pagination ? `${pagination.total} total` : "Loading..."}
+          </p>
+        </div>
+        <Link href="/admin/vehicles/new" className="btn btn-primary">
+          Add vehicle
+        </Link>
+      </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
         {FILTERS.map((f) => (
@@ -156,11 +163,19 @@ export default function AdminVehiclesPage() {
                     <td className="px-4 py-3 align-middle">
                     <div className="flex items-center justify-end gap-4">
                         <Link
+                          href={`/admin/vehicles/${v._id}/edit`}
+                          className="text-teal-700 hover:underline"
+                        >
+                          Edit
+                        </Link>
+                        {v.status === "available" && (
+                        <Link
                         href={`/inventory/${v._id}`}
                         className="text-teal-700 hover:underline"
                         >
                         View
                         </Link>
+                        )}
                         <button
                         type="button"
                         onClick={() => handleDelete(v)}
