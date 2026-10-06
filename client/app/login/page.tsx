@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { login } from "@/lib/auth";
 
-const input = "w-full rounded border border-gray-300 px-3 py-2 text-sm";
+const input = "field";
 const label = "mb-1 block text-sm font-medium";
 
 export default function LoginPage() {
@@ -40,7 +40,7 @@ export default function LoginPage() {
       <h1 className="text-2xl font-bold">Log in</h1>
       <p className="mt-1 text-sm text-gray-600">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="text-blue-700 hover:underline">
+        <Link href="/register" className="text-teal-700 hover:underline">
           Sign up
         </Link>
       </p>
@@ -60,7 +60,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800 disabled:opacity-60"
+          className="btn btn-primary w-full"
         >
           {submitting ? "Logging in..." : "Log in"}
         </button>

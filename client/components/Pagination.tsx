@@ -14,8 +14,8 @@ export default function Pagination({ page, totalPages, params }: Props) {
     return `/inventory?${q.toString()}`;
   };
 
-  const btn = "rounded border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50";
-  const disabled = "rounded border border-gray-200 px-4 py-2 text-sm text-gray-400";
+  const btn = "btn btn-secondary";
+  const disabled = "btn btn-secondary opacity-50 pointer-events-none";
 
   return (
     <nav className="mt-8 flex items-center justify-center gap-4" aria-label="Pagination">

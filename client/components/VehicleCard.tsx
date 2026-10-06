@@ -9,7 +9,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <Link
       href={`/inventory/${vehicle._id}`}
-      className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
+      className="glass glass-edge glass-hover block overflow-hidden"
     >
       <div className="relative aspect-[4/3] bg-gray-100">
         {photo ? (
@@ -29,7 +29,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
       <div className="p-4">
         <h3 className="font-semibold">{title}</h3>
         {vehicle.trim && <p className="text-sm text-gray-500">{vehicle.trim}</p>}
-        <p className="mt-2 text-xl font-bold text-blue-700">
+        <p className="mt-2 text-xl font-bold text-teal-700">
           ${vehicle.price.toLocaleString("en-US")}
         </p>
         <p className="text-sm text-gray-600">

@@ -14,32 +14,30 @@ export default function HeaderNav() {
     router.refresh();
   }
 
+  const link = "text-sm font-medium text-gray-700 transition hover:text-orange-600";
+
   return (
-    <div className="flex items-center gap-6 text-sm font-medium">
-      <Link href="/inventory" className="hover:text-blue-700">
+    <div className="flex items-center gap-4 sm:gap-6">
+      <Link href="/inventory" className={link}>
         Inventory
       </Link>
 
-      {/* While loading, show nothing here so the nav doesn't flash "Login" for logged-in users */}
       {!loading &&
         (user ? (
           <>
-            <span className="hidden text-gray-500 sm:inline">
+            <span className="text-sm font-medium text-gray-900">
               Hi, {user.name.split(" ")[0]}
             </span>
-            <button type="button" onClick={handleLogout} className="hover:text-blue-700">
+            <button type="button" onClick={handleLogout} className={link}>
               Log out
             </button>
           </>
         ) : (
           <>
-            <Link href="/login" className="hover:text-blue-700">
+            <Link href="/login" className={link}>
               Login
             </Link>
-            <Link
-              href="/register"
-              className="rounded bg-blue-700 px-3 py-1.5 text-white hover:bg-blue-800"
-            >
+            <Link href="/register" className="btn btn-primary !px-4 !py-1.5">
               Sign up
             </Link>
           </>

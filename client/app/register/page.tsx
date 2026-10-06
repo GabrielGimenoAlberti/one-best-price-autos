@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { register } from "@/lib/auth";
 
-const input = "w-full rounded border border-gray-300 px-3 py-2 text-sm";
+const input = "field";
 const label = "mb-1 block text-sm font-medium";
 
 export default function RegisterPage() {
@@ -46,7 +46,7 @@ export default function RegisterPage() {
       <h1 className="text-2xl font-bold">Create an account</h1>
       <p className="mt-1 text-sm text-gray-600">
         Already have one?{" "}
-        <Link href="/login" className="text-blue-700 hover:underline">
+        <Link href="/login" className="text-teal-700 hover:underline">
           Log in
         </Link>
       </p>
@@ -75,7 +75,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800 disabled:opacity-60"
+          className="btn btn-primary w-full"
         >
           {submitting ? "Creating account..." : "Sign up"}
         </button>
