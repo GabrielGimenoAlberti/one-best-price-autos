@@ -22,6 +22,12 @@ export default function HeaderNav() {
         Inventory
       </Link>
 
+      {!loading && user?.role === "admin" && (
+        <Link href="/admin" className={link}>
+          Admin
+        </Link>
+      )}
+
       {!loading &&
         (user ? (
           <>
