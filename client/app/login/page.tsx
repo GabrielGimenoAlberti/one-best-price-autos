@@ -31,7 +31,7 @@ export default function LoginPage() {
     }
 
     setUser(result.user);
-    router.push("/"); // admins will go to /admin once the dashboard exists
+    router.push(result.user.role === "admin" ? "/admin" : "/");
     router.refresh();
   }
 
