@@ -79,3 +79,30 @@ export function deleteVehicleImage(id: string, imageId: string) {
     method: "DELETE",
   });
 }
+
+export type Inquiry = {
+  _id: string;
+  vehicle?: { _id: string; year: number; make: string; model: string; vin: string } | null;
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  status: "new" | "handled";
+  createdAt: string;
+};
+
+export function listInquiries(params: { status?: string; page?: number }) {
+  const q = new URLSearchParams();
+  if (params.status) q.set("status", params.status);
+  q.set("page", String(params.page ?? 1));
+  return request<{ inquiries: Inquiry[]; pagination: Pagination }>(
+    `/admin/inquiries?${q.toString()}`
+  );
+}
+
+export function setInquiryStatus(id: string, status: "new" | "handled") {
+  return request<Inquiry>(`/admin/inquiries/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ status }),
+  });
+}
