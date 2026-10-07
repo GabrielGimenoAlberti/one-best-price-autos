@@ -6,11 +6,11 @@ import InquiryForm from "@/components/InquiryForm";
 // Placeholders: replace with the dealer's real details
 const LOCATION = {
   name: "One Best Price Autos",
-  address: ["123 Example Street", "Your City, FL 00000"],
-  phone: "(555) 555-5555",
+  address: ["5081 South State Road 7", "Unit 822", "Davie, FL 33314"],
+  phone: "(954) 380-0311",
   hours: [
     ["Monday to Friday", "9:00 AM to 6:00 PM"],
-    ["Saturday", "10:00 AM to 4:00 PM"],
+    ["Saturday", "10:00 AM to 5:00 PM"],
     ["Sunday", "Closed"],
   ],
 };
@@ -49,10 +49,10 @@ export default async function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 pb-14 pt-20 text-center sm:pt-28">
         <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
-          Quality used cars,
+          Quality Used Cars
           <br />
-          <span className="bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent">
-            one best price.
+          <span className="outlined" data-text="One Best Price Autos">
+            <span className="outlined-fill">One Best Price Autos</span>
           </span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-gray-700">
