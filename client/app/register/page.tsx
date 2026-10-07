@@ -53,24 +53,66 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label htmlFor="name" className={label}>Name</label>
-          <input id="name" name="name" required maxLength={100} autoComplete="name" className={input} />
+          <label htmlFor="name" className={label}>
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            required
+            maxLength={100}
+            autoComplete="name"
+            className={input}
+          />
         </div>
         <div>
-          <label htmlFor="email" className={label}>Email</label>
-          <input id="email" name="email" type="email" required autoComplete="email" className={input} />
+          <label htmlFor="email" className={label}>
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className={input}
+          />
         </div>
         <div>
-          <label htmlFor="phone" className={label}>Phone (optional)</label>
-          <input id="phone" name="phone" type="tel" maxLength={30} autoComplete="tel" className={input} />
+          <label htmlFor="phone" className={label}>
+            Phone (optional)
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            maxLength={30}
+            autoComplete="tel"
+            className={input}
+          />
         </div>
         <div>
-          <label htmlFor="password" className={label}>Password</label>
-          <input id="password" name="password" type="password" required minLength={8} maxLength={72} autoComplete="new-password" className={input} />
+          <label htmlFor="password" className={label}>
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            minLength={8}
+            maxLength={72}
+            autoComplete="new-password"
+            className={input}
+          />
           <p className="mt-1 text-xs text-gray-500">At least 8 characters.</p>
         </div>
 
-        {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+        {error && (
+          <p role="alert" className="text-sm text-red-600">
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"

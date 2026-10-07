@@ -6,7 +6,10 @@ export type VehicleStatus = "available" | "pending" | "sold";
 
 type Result<T> = { data: T } | { error: string };
 
-async function request<T>(path: string, init: RequestInit = {}): Promise<Result<T>> {
+async function request<T>(
+  path: string,
+  init: RequestInit = {},
+): Promise<Result<T>> {
   try {
     const res = await fetch(`${API_URL}${path}`, {
       ...init,
@@ -19,7 +22,9 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<Result<
     });
     const json = await res.json().catch(() => null);
     if (res.ok) return { data: json as T };
-    return { error: json?.errors?.[0] ?? json?.message ?? "Something went wrong." };
+    return {
+      error: json?.errors?.[0] ?? json?.message ?? "Something went wrong.",
+    };
   } catch {
     return { error: "Could not reach the server. Please try again." };
   }
@@ -30,7 +35,7 @@ export function listAdminVehicles(params: { status?: string; page?: number }) {
   if (params.status) q.set("status", params.status);
   q.set("page", String(params.page ?? 1));
   return request<{ vehicles: Vehicle[]; pagination: Pagination }>(
-    `/admin/vehicles?${q.toString()}`
+    `/admin/vehicles?${q.toString()}`,
   );
 }
 
@@ -42,7 +47,9 @@ export function setVehicleStatus(id: string, status: VehicleStatus) {
 }
 
 export function deleteAdminVehicle(id: string) {
-  return request<{ message: string }>(`/admin/vehicles/${id}`, { method: "DELETE" });
+  return request<{ message: string }>(`/admin/vehicles/${id}`, {
+    method: "DELETE",
+  });
 }
 
 export type VehicleInput = Record<string, string | number | string[]>;
@@ -82,7 +89,13 @@ export function deleteVehicleImage(id: string, imageId: string) {
 
 export type Inquiry = {
   _id: string;
-  vehicle?: { _id: string; year: number; make: string; model: string; vin: string } | null;
+  vehicle?: {
+    _id: string;
+    year: number;
+    make: string;
+    model: string;
+    vin: string;
+  } | null;
   name: string;
   email: string;
   phone?: string;
@@ -96,7 +109,7 @@ export function listInquiries(params: { status?: string; page?: number }) {
   if (params.status) q.set("status", params.status);
   q.set("page", String(params.page ?? 1));
   return request<{ inquiries: Inquiry[]; pagination: Pagination }>(
-    `/admin/inquiries?${q.toString()}`
+    `/admin/inquiries?${q.toString()}`,
   );
 }
 

@@ -20,7 +20,11 @@ export async function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-export default async function VehicleDetailPage({ params }: { params: Params }) {
+export default async function VehicleDetailPage({
+  params,
+}: {
+  params: Params;
+}) {
   const { id } = await params;
   const v = await loadVehicle(id);
   if (!v) notFound();
@@ -51,7 +55,9 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
           {v.description && (
             <section className="mt-8">
               <h2 className="text-lg font-semibold">Description</h2>
-              <p className="mt-2 whitespace-pre-line text-gray-700">{v.description}</p>
+              <p className="mt-2 whitespace-pre-line text-gray-700">
+                {v.description}
+              </p>
             </section>
           )}
 
@@ -85,7 +91,10 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
             {specs
               .filter(([, value]) => value)
               .map(([name, value]) => (
-                <div key={name} className="flex justify-between gap-4 px-4 py-2">
+                <div
+                  key={name}
+                  className="flex justify-between gap-4 px-4 py-2"
+                >
                   <dt className="text-gray-500">{name}</dt>
                   <dd className="text-right font-medium capitalize">{value}</dd>
                 </div>
@@ -93,7 +102,9 @@ export default async function VehicleDetailPage({ params }: { params: Params }) 
           </dl>
 
           <div className="glass p-4">
-            <h2 className="mb-3 text-lg font-semibold">Ask about this vehicle</h2>
+            <h2 className="mb-3 text-lg font-semibold">
+              Ask about this vehicle
+            </h2>
             <InquiryForm vehicleId={v._id} vehicleTitle={title} />
           </div>
         </aside>

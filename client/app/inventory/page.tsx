@@ -8,8 +8,16 @@ export const metadata = {
 };
 
 const ALLOWED = [
-  "make", "bodyType", "fuelType", "minPrice", "maxPrice",
-  "minYear", "maxYear", "maxMileage", "sort", "page",
+  "make",
+  "bodyType",
+  "fuelType",
+  "minPrice",
+  "maxPrice",
+  "minYear",
+  "maxYear",
+  "maxMileage",
+  "sort",
+  "page",
 ];
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -38,7 +46,8 @@ export default async function InventoryPage({
     <main className="mx-auto max-w-6xl px-4 py-8">
       <h1 className="text-2xl font-bold">Available Vehicles</h1>
       <p className="mt-1 text-sm text-gray-600">
-        {pagination.total} {pagination.total === 1 ? "vehicle" : "vehicles"} found
+        {pagination.total} {pagination.total === 1 ? "vehicle" : "vehicles"}{" "}
+        found
       </p>
 
       <div className="mt-6 flex flex-col gap-8 lg:flex-row">
