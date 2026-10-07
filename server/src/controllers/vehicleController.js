@@ -97,7 +97,7 @@ export async function getVehicleById(req, res, next) {
       return res.status(400).json({ message: 'Invalid vehicle id' });
     }
 
-    const vehicle = await Vehicle.findOne({ _id: id, status: { $ne: 'sold' } }).lean();
+    const vehicle = await Vehicle.findOne({ _id: id, status: 'available' }).lean();
     if (!vehicle) {
       return res.status(404).json({ message: 'Vehicle not found' });
     }
