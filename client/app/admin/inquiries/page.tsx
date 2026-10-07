@@ -41,7 +41,10 @@ export default function InquiriesPage() {
   }, [status, page, reload]);
 
   async function toggle(i: Inquiry) {
-    const result = await setInquiryStatus(i._id, i.status === "new" ? "handled" : "new");
+    const result = await setInquiryStatus(
+      i._id,
+      i.status === "new" ? "handled" : "new",
+    );
     if ("error" in result) {
       setError(result.error);
       return;
@@ -79,7 +82,9 @@ export default function InquiriesPage() {
       )}
 
       {!loading && inquiries.length === 0 && (
-        <p className="glass mt-6 p-8 text-center text-gray-500">No inquiries here.</p>
+        <p className="glass mt-6 p-8 text-center text-gray-500">
+          No inquiries here.
+        </p>
       )}
 
       <ul className="mt-6 space-y-4">
@@ -96,13 +101,19 @@ export default function InquiriesPage() {
                   )}
                 </p>
                 <p className="mt-1 text-sm">
-                  <a href={`mailto:${i.email}`} className="text-teal-700 hover:underline">
+                  <a
+                    href={`mailto:${i.email}`}
+                    className="text-teal-700 hover:underline"
+                  >
                     {i.email}
                   </a>
                   {i.phone && (
                     <>
                       {" · "}
-                      <a href={`tel:${i.phone}`} className="text-teal-700 hover:underline">
+                      <a
+                        href={`tel:${i.phone}`}
+                        className="text-teal-700 hover:underline"
+                      >
                         {i.phone}
                       </a>
                     </>

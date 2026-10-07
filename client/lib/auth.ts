@@ -20,7 +20,9 @@ async function send(path: string, body?: unknown): Promise<Result> {
     });
     const json = await res.json().catch(() => null);
     if (res.ok) return { user: json.user };
-    return { error: json?.errors?.[0] ?? json?.message ?? "Something went wrong." };
+    return {
+      error: json?.errors?.[0] ?? json?.message ?? "Something went wrong.",
+    };
   } catch {
     return { error: "Could not reach the server. Please try again." };
   }

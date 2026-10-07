@@ -36,7 +36,7 @@ export type VehicleListResponse = {
 };
 
 export async function getVehicles(
-  params: Record<string, string> = {}
+  params: Record<string, string> = {},
 ): Promise<VehicleListResponse> {
   const query = new URLSearchParams(params).toString();
   const res = await fetch(`${API_URL}/vehicles${query ? `?${query}` : ""}`, {

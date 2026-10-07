@@ -22,7 +22,10 @@ export default function LoginPage() {
     setSubmitting(true);
     setError("");
 
-    const result = await login(String(data.get("email")), String(data.get("password")));
+    const result = await login(
+      String(data.get("email")),
+      String(data.get("password")),
+    );
 
     if ("error" in result) {
       setError(result.error);
@@ -47,15 +50,37 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label htmlFor="email" className={label}>Email</label>
-          <input id="email" name="email" type="email" required autoComplete="email" className={input} />
+          <label htmlFor="email" className={label}>
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className={input}
+          />
         </div>
         <div>
-          <label htmlFor="password" className={label}>Password</label>
-          <input id="password" name="password" type="password" required autoComplete="current-password" className={input} />
+          <label htmlFor="password" className={label}>
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autoComplete="current-password"
+            className={input}
+          />
         </div>
 
-        {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+        {error && (
+          <p role="alert" className="text-sm text-red-600">
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"

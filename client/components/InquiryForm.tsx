@@ -11,8 +11,8 @@ export default function InquiryForm({
   vehicleId,
   vehicleTitle,
 }: {
-  vehicleId: string;
-  vehicleTitle: string;
+  vehicleId?: string;
+  vehicleTitle?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
@@ -26,10 +26,10 @@ export default function InquiryForm({
     const phone = String(data.get("phone") ?? "").trim();
 
     const body = {
-      vehicleId,
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
+      ...(vehicleId ? { vehicleId } : {}),
       ...(phone ? { phone } : {}),
     };
 
@@ -64,7 +64,7 @@ export default function InquiryForm({
 
   if (status === "sent") {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+      <div className="notice-success">
         <p className="font-semibold">Thanks! Your message was sent.</p>
         <p className="mt-1">We will be in touch soon.</p>
         <button
@@ -79,7 +79,7 @@ export default function InquiryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3 text-left">
       <div>
         <label htmlFor="name" className={label}>
           Name
@@ -129,7 +129,14 @@ export default function InquiryForm({
           required
           rows={4}
           maxLength={2000}
-          defaultValue={`I'm interested in the ${vehicleTitle}.`}
+          defaultValue={
+            vehicleTitle ? `I'm interested in the ${vehicleTitle}.` : ""
+          }
+          placeholder={
+            vehicleTitle
+              ? undefined
+              : "Tell us what you're looking for, such as a type, budget, or model."
+          }
           className={input}
         />
       </div>

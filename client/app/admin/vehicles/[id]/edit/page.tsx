@@ -19,7 +19,12 @@ export default function EditVehiclePage() {
     });
   }, [id]);
 
-  if (error) return <p role="alert" className="text-red-600">{error}</p>;
+  if (error)
+    return (
+      <p role="alert" className="text-red-600">
+        {error}
+      </p>
+    );
   if (!vehicle) return <p className="text-gray-600">Loading...</p>;
 
   return (
