@@ -82,14 +82,30 @@ export async function updateInquiryStatus(req, res, next) {
     const parsed = statusSchema.safeParse(req.body);
     if (!parsed.success) return badRequest(res, 'Invalid status', parsed.error);
 
-    const inquiry = await Inquiry.findByIdAndUpdate(
-      req.params.id,
-      { $set: { status: parsed.data.status } },
-      { new: true }
-    ).lean();
+    const update =
+      parsed.data.status === 'handled'
+        ? { $set: { status: 'handled', handledAt: new Date() } }
+        : { $set: { status: 'new' }, $unset: { handledAt: 1 } };
+
+    const inquiry = await Inquiry.findByIdAndUpdate(req.params.id, update, { new: true }).lean();
+
+
 
     if (!inquiry) return res.status(404).json({ message: 'Inquiry not found' });
     res.json(inquiry);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteInquiry(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid inquiry id' });
+    }
+    const inquiry = await Inquiry.findByIdAndDelete(req.params.id).lean();
+    if (!inquiry) return res.status(404).json({ message: 'Inquiry not found' });
+    res.json({ message: 'Inquiry deleted' });
   } catch (err) {
     next(err);
   }
