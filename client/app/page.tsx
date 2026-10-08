@@ -48,12 +48,17 @@ export default async function Home() {
     <main>
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 pb-14 pt-20 text-center sm:pt-28">
-        <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
-          Quality Used Cars
-          <br />
-          <span className="outlined" data-text="One Best Price Autos">
-            <span className="outlined-fill">One Best Price Autos</span>
+        <h1 className="font-bold tracking-tight">
+          
+          <span
+            className="mt-2 block whitespace-nowrap"
+            style={{ fontSize: "clamp(1.5rem, 7vw, 5.5rem)" }}
+          >
+            <span className="outlined" data-text="One Best Price Autos">
+              <span className="outlined-fill">One Best Price Autos</span>
+            </span>
           </span>
+          <span className="block text-3xl sm:text-5xl">Quality Used Cars</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-gray-700">
           Browse our current selection and find your next vehicle with simple,

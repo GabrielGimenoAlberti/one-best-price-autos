@@ -227,7 +227,7 @@ body::before {
   left: 0;
   top: 0;
   color: #000;
-  -webkit-text-stroke: 4px #000; /* about 3px of visible outline */
+  -webkit-text-stroke: 4px #000;
   pointer-events: none;
 }
 
