@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Pagination } from "@/lib/api";
-import { listInquiries, setInquiryStatus, type Inquiry } from "@/lib/admin";
+import { deleteInquiry, listInquiries, setInquiryStatus, type Inquiry } from "@/lib/admin";
 
 const FILTERS = [
   { value: "new", label: "New" },
@@ -45,6 +45,16 @@ export default function InquiriesPage() {
       i._id,
       i.status === "new" ? "handled" : "new",
     );
+    if ("error" in result) {
+      setError(result.error);
+      return;
+    }
+    setReload((n) => n + 1);
+  }
+
+  async function remove(i: Inquiry) {
+    if (!window.confirm(`Delete the message from ${i.name} permanently?`)) return;
+    const result = await deleteInquiry(i._id);
     if ("error" in result) {
       setError(result.error);
       return;
@@ -144,13 +154,18 @@ export default function InquiriesPage() {
 
             <p className="mt-3 whitespace-pre-line text-sm">{i.message}</p>
 
-            <button
-              type="button"
-              onClick={() => toggle(i)}
-              className={`btn mt-4 ${i.status === "new" ? "btn-primary" : "btn-secondary"}`}
-            >
-              {i.status === "new" ? "Mark handled" : "Mark as new"}
-            </button>
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => toggle(i)}
+                className={`btn ${i.status === "new" ? "btn-primary" : "btn-secondary"}`}
+              >
+                {i.status === "new" ? "Mark handled" : "Mark as new"}
+              </button>
+              <button type="button" onClick={() => remove(i)} className="text-sm text-red-600 hover:underline">
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

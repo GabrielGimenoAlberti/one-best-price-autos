@@ -119,3 +119,7 @@ export function setInquiryStatus(id: string, status: "new" | "handled") {
     body: JSON.stringify({ status }),
   });
 }
+
+export function deleteInquiry(id: string) {
+  return request<{ message: string }>(`/admin/inquiries/${id}`, { method: "DELETE" });
+}
