@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { z } from 'zod';
 import Inquiry from '../models/Inquiry.js';
 import Vehicle from '../models/Vehicle.js';
+import { notifyNewInquiry } from '../utils/mailer.js';
 
 const createSchema = z.strictObject({
   vehicleId: z.string().refine((v) => mongoose.isValidObjectId(v), 'Invalid vehicle id').optional(),
@@ -32,14 +33,20 @@ export async function createInquiry(req, res, next) {
     if (!parsed.success) return badRequest(res, 'Invalid inquiry', parsed.error);
     const { vehicleId, ...data } = parsed.data;
 
+        let vehicle = null;
     if (vehicleId) {
-      const exists = await Vehicle.exists({ _id: vehicleId });
-      if (!exists) return res.status(404).json({ message: 'Vehicle not found' });
+      vehicle = await Vehicle.findById(vehicleId).select('year make model').lean();
+      if (!vehicle) return res.status(404).json({ message: 'Vehicle not found' });
       data.vehicle = vehicleId;
     }
 
     await Inquiry.create(data);
-    // Don't echo the saved record back to the public
+
+    // Not awaited: a mail problem must never make the customer's message fail
+    notifyNewInquiry(data, vehicle).catch((err) =>
+      console.error('Email alert failed:', err.message)
+    );
+
     res.status(201).json({ message: 'Inquiry received. We will be in touch soon.' });
   } catch (err) {
     next(err);
