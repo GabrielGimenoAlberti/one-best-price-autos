@@ -84,7 +84,7 @@ one-best-price-autos/
 **Requirements:** Node.js (current LTS), a free MongoDB Atlas cluster, and a free Cloudinary account.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/one-best-price-autos.git
+git clone https://github.com/GabrielGimenoAlberti/one-best-price-autos.git
 cd one-best-price-autos
 ```
 
