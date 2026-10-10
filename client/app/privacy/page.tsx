@@ -2,7 +2,7 @@ import LegalPage from "@/components/LegalPage";
 
 export const metadata = { title: "Privacy Policy | One Best Price Autos" };
 
-const CONTACT_EMAIL = "example@email.com"; // replace
+const CONTACT_EMAIL = "jorgebestpriceautos@gmail.com"; 
 
 export default function PrivacyPage() {
   return (
