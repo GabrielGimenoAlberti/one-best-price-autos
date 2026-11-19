@@ -28,6 +28,9 @@ const DRIVETRAINS = ["fwd", "rwd", "awd", "4wd"];
 const input = "field";
 const label = "mb-1 block text-sm font-medium";
 
+const MAX_PHOTOS = 30;
+const BATCH_SIZE = 10;
+
 function Select({
   name,
   label: text,
@@ -74,6 +77,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: Vehicle }) {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [progress, setProgress] = useState("");
 
   // Preview URLs for the chosen photos, cleaned up when the list changes
   const previews = useMemo(
@@ -98,8 +102,8 @@ export default function VehicleForm({ vehicle }: { vehicle?: Vehicle }) {
       setError(`"${bad.name}" must be a JPG, PNG, or WebP under 5 MB.`);
       return;
     }
-    if (files.length + picked.length > 10) {
-      setError("You can add up to 10 photos at a time.");
+    if (files.length + picked.length > MAX_PHOTOS) {
+      setError(`You can add up to ${MAX_PHOTOS} photos. You have room for ${MAX_PHOTOS - files.length} more.`);
       return;
     }
     setError("");
@@ -156,14 +160,18 @@ export default function VehicleForm({ vehicle }: { vehicle?: Vehicle }) {
       return;
     }
     if (!editing && files.length > 0) {
-      const upload = await uploadVehicleImages(result.data._id, files);
-      if ("error" in upload) {
-        // The car is saved, so send the admin to the edit page to retry the photos
-        router.push(`/admin/vehicles/${result.data._id}/edit`);
-        router.refresh();
-        return;
-      }
+  for (let i = 0; i < files.length; i += BATCH_SIZE) {
+    const end = Math.min(i + BATCH_SIZE, files.length);
+    setProgress(`Uploading photos ${i + 1} to ${end} of ${files.length}...`);
+    const upload = await uploadVehicleImages(result.data._id, files.slice(i, i + BATCH_SIZE));
+    if ("error" in upload) {
+      // The car is saved. The edit page lets you retry the remaining photos
+      router.push(`/admin/vehicles/${result.data._id}/edit`);
+      router.refresh();
+      return;
     }
+  }
+}
     router.push("/admin");
     router.refresh();
   }
@@ -360,7 +368,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: Vehicle }) {
         <div>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className={label}>Photos (optional, up to 10)</p>
+              <p className={label}>Photos (optional, up to 30)</p>
               <p className="text-xs text-gray-500">
                 The first photo is the main one. JPG, PNG, or WebP, up to 5 MB
                 each.
@@ -417,7 +425,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: Vehicle }) {
 
       <div className="flex gap-3">
         <button type="submit" disabled={submitting} className="btn btn-primary">
-          {submitting ? "Saving..." : editing ? "Save changes" : "Add vehicle"}
+          {submitting ? progress || "Saving..." : editing ? "Save changes" : "Add vehicle"}
         </button>
         <Link href="/admin" className="btn btn-secondary">
           Cancel
