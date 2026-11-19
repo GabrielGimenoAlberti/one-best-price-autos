@@ -8,6 +8,9 @@ import { deleteVehicleImage, uploadVehicleImages } from "@/lib/admin";
 const MAX_BYTES = 5 * 1024 * 1024;
 const TYPES = ["image/jpeg", "image/png", "image/webp"];
 
+const MAX_PHOTOS = 30;
+const BATCH_SIZE = 10;
+
 export default function PhotoManager({
   vehicleId,
   initialImages,
@@ -18,16 +21,19 @@ export default function PhotoManager({
   const [images, setImages] = useState(initialImages);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [progress, setProgress] = useState("");
 
   async function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
     e.target.value = ""; // lets you pick the same file again later
     if (files.length === 0) return;
 
-    if (files.length > 10) {
-      setError("Select up to 10 photos at a time.");
-      return;
-    }
+    if (images.length + files.length > MAX_PHOTOS) {
+  setError(
+    `A vehicle can have at most ${MAX_PHOTOS} photos. You can add ${Math.max(0, MAX_PHOTOS - images.length)} more.`
+  );
+  return;
+}
     const bad = files.find(
       (f) => !TYPES.includes(f.type) || f.size > MAX_BYTES,
     );
@@ -37,11 +43,19 @@ export default function PhotoManager({
     }
 
     setBusy(true);
-    setError("");
-    const result = await uploadVehicleImages(vehicleId, files);
-    if ("error" in result) setError(result.error);
-    else setImages(result.data.images);
-    setBusy(false);
+setError("");
+for (let i = 0; i < files.length; i += BATCH_SIZE) {
+  const end = Math.min(i + BATCH_SIZE, files.length);
+  setProgress(`Uploading ${i + 1} to ${end} of ${files.length}...`);
+  const result = await uploadVehicleImages(vehicleId, files.slice(i, i + BATCH_SIZE));
+  if ("error" in result) {
+    setError(i > 0 ? `${i} of ${files.length} photos uploaded. ${result.error}` : result.error);
+    break;
+  }
+  setImages(result.data.images);
+}
+setProgress("");
+setBusy(false);
   }
 
   async function handleRemove(imageId: string) {
@@ -67,7 +81,7 @@ export default function PhotoManager({
         <label
           className={`btn btn-primary ${busy ? "pointer-events-none opacity-60" : ""}`}
         >
-          {busy ? "Working..." : "Upload photos"}
+          {busy ? progress || "Working..." : "Upload photos"}
           <input
             type="file"
             accept="image/jpeg,image/png,image/webp"
